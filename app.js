@@ -6,7 +6,7 @@ const io = require('socket.io')(servers, );
 
 const socketPort = 8300;
 
-io.origins(['https://socket-client.wissamsawah.me:443', 'http://localhost:3000'])
+io.origins(['https://me-react.wissamsawah.me:443', 'http://localhost:3000'])
 
 
 app.use(cors());
