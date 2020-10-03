@@ -2,23 +2,22 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const servers = require('http').createServer(app);
-const io = require('socket.io')(servers);
-const time = require('./time.js');
-const bodyParser = require("body-parser");
-const socketPort = 9595;
+const io = require('socket.io')(servers, );
 
-io.origins(['https://wissamsawah.me:443']);
+const socketPort = 8300;
+
+io.origins(['https://socket-client.wissamsawah.me:443', 'http://localhost:3000'])
+
+
 app.use(cors());
 
 io.on('connection', function (socket) {
-    console.log("User connected");
-
-    msg = {timestamp: time.getTimeOfDay(), user: "", message: "A new user have arrived to the chat!"};
-
-    io.emit("msgReceived", msg);
 
     socket.on('msgSend', function (clientData) {
-        msg = {timestamp: time.getTimeOfDay(), user: clientData.user, message: clientData.message};
+        msg = {timestamp: new Date().toLocaleTimeString().split(0,5), user: "", message: "New user have landed to the chat!"};
+
+        io.emit("msgReceived", msg);
+        msg = {timestamp: new Date().toLocaleTimeString().split(0,5), user: clientData.user, message: clientData.message};
         io.emit('msgReceived', msg);
     });
 
