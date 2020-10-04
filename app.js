@@ -13,8 +13,9 @@ app.use(cors());
 
 io.on('connection', function (socket) {
 
+    msg = {timestamp: new Date().toLocaleTimeString().split(0,5), user: "", message: "New user have landed to the chat!"};
+
     socket.on('msgSend', function (clientData) {
-        msg = {timestamp: new Date().toLocaleTimeString().split(0,5), user: "", message: "New user have landed to the chat!"};
 
         io.emit("msgReceived", msg);
         msg = {timestamp: new Date().toLocaleTimeString().split(0,5), user: clientData.user, message: clientData.message};
